@@ -1,0 +1,19 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+}
+
+.final {
+  background-color: rgb(211, 211, 211);
+  border-radius: 16px;
+  box-shadow: 4px 4px 2px black;
+  text-transform: uppercase;
+  font-size: 8vw;
+  font-weight: 700;
+  font-family: "Crete Round", serif;
+  cursor: pointer;
+  text-align: center;
+}

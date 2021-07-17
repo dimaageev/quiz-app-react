@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header/Header";
+import Home from "./components/Pages/Home/Home";
+import Quiz from "./components/Pages/Quiz/Quiz";
+import Result from "./components/Pages/Result/Result";
 
 function App() {
+  const [name, setName] = useState("");
+  const [questions, setQuestions] = useState();
+  const [score, setScore] = useState(0);
+
+  const fetchQuestions = async (category = "", difficulty = "") => {
+    const { data } = await axios.get(
+      `https://opentdb.com/api.php?amount=10${
+        category && `&category=${category}`
+      }${difficulty && `&difficulty${difficulty}`}&type=multiple`
+    );
+    setQuestions(data.results);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="app" style={{ backgroundImage: "url(./back.jpg)" }}>
+        <Header />
+        <Switch>
+          <Route path="/" exact>
+            <Home
+              name={name}
+              setName={setName}
+              fetchQuestions={fetchQuestions}
+            />
+          </Route>
+          <Route path="/quiz" exact>
+            <Quiz
+              name={name}
+              questions={questions}
+              score={score}
+              setQuestions={setQuestions}
+              setScore={setScore}
+            />
+          </Route>
+          <Route path="/result" exact>
+            <Result name={name} score={score} />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
