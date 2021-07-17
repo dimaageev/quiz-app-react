@@ -9,16 +9,25 @@ import Result from "./components/Pages/Result/Result";
 
 function App() {
   const [name, setName] = useState("");
-  const [questions, setQuestions] = useState();
+  const [questions, setQuestions] = useState({
+    loading: false,
+    error: false,
+    data: null,
+  });
   const [score, setScore] = useState(0);
 
   const fetchQuestions = async (category = "", difficulty = "") => {
-    const { data } = await axios.get(
-      `https://opentdb.com/api.php?amount=10${
-        category && `&category=${category}`
-      }${difficulty && `&difficulty${difficulty}`}&type=multiple`
-    );
-    setQuestions(data.results);
+    setQuestions({ ...questions, loading: true, error: false });
+    try {
+      const { data } = await axios.get(
+        `https://opentdb.com/api.php?amount=10${
+          category && `&category=${category}`
+        }${difficulty && `&difficulty${difficulty}`}&type=multiple`
+      );
+      setQuestions({ ...questions, loading: false, data: data.results });
+    } catch (error) {
+      setQuestions({ ...questions, loading: false, error: true, data: null });
+    }
   };
 
   return (

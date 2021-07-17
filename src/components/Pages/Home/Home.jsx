@@ -30,7 +30,7 @@ const Home = (props) => {
         <span style={{ fontSize: 30 }}>Quiz Settings</span>
         <div className="settings-select">
           {/* Error Message */}
-          {error && <ErrorMessage>Fill all the fields</ErrorMessage>}
+          {error && <ErrorMessage>Fill all fields</ErrorMessage>}
           {/* Name Button */}
           <TextField
             style={{ marginBottom: 25 }}

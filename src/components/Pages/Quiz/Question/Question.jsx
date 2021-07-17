@@ -52,7 +52,7 @@ const Question = (props) => {
       <div className="current-question">
         <h2>{props.questions[props.currentQuestion].question}</h2>
         <div className="options">
-          {error && <ErrorMessage>Fill all the fields</ErrorMessage>}
+          {error && <ErrorMessage>Choose the answer</ErrorMessage>}
           {props.options &&
             props.options.map((i) => (
               <button
